@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Your Event Name – Trail Race</title>
+<title>Benguet Marathon</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@300;400;600&family=Hanken+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
@@ -219,11 +219,57 @@ body.spot .hero:not(.focus),body.spot main>section:not(.focus){opacity:.5}
 .scene .profile .ln{stroke-width:4.5}
 .scene .profile text{font-size:18px;font-weight:600;fill:rgba(244,241,234,.9)}
 .scene .profile .pts circle{fill:#13231c;stroke:#F2A66F;stroke-width:3.5}
+
+/* Back to top */
+.totop{position:fixed;right:1.25rem;bottom:calc(1.25rem + env(safe-area-inset-bottom,0px));z-index:15;width:3rem;height:3rem;border-radius:50%;display:grid;place-items:center;background:var(--bg);color:var(--accent);border:1px solid var(--line);box-shadow:0 6px 18px rgba(0,0,0,.18);cursor:pointer;opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .25s,transform .25s,visibility .25s}
+.totop.show{opacity:1;visibility:visible;transform:none}
+.totop:hover{border-color:var(--accent)}
+@media (prefers-reduced-motion:reduce){.totop{transition:none}}
+
+/* Logo */
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.hero h1.lockup{font-size:0;line-height:0;margin:0 0 .5rem}
+.lockup svg{width:min(100%,40rem);height:auto;display:block;overflow:visible;filter:drop-shadow(0 6px 18px rgba(0,0,0,.35))}
+.bar .logo{display:flex;align-items:center;gap:.65rem}
+.mk{width:2.4rem;height:2.4rem;flex:none}
+.logo-t{font:400 .95rem "Fraunces",Georgia,serif;letter-spacing:.16em}
+@media (max-width:30rem){.logo-t{display:none}}
+
+/* 3D emblem */
+.hero{display:grid;grid-template-columns:minmax(0,1fr) min(27rem,42%);column-gap:3rem;align-items:center}
+.hero h1.emblem{grid-column:2;grid-row:1;font-size:0;line-height:0;margin:0;justify-self:end;width:100%}
+.hcopy{grid-column:1;grid-row:1}
+.hero .profile{grid-column:1/-1;grid-row:2}
+.emb{display:block;position:relative;width:100%;aspect-ratio:1;perspective:1000px}
+.tilt,.float{display:block;position:absolute;inset:0;transform-style:preserve-3d}
+.tilt{transform:rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg));transition:transform .25s ease-out}
+.float{animation:float 9s ease-in-out infinite alternate}
+@keyframes float{from{transform:rotateY(-5deg) rotateX(2deg)}to{transform:rotateY(5deg) rotateX(-2deg)}}
+.ly{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.z1{transform:translateZ(-30px);filter:drop-shadow(0 18px 24px rgba(0,0,0,.45))}.z2{transform:translateZ(0)}.z3{transform:translateZ(26px)}.z4{transform:translateZ(52px)}
+.sw{animation:sweep 7s ease-in-out 1.6s infinite}
+@keyframes sweep{0%{transform:translateX(0)}35%,100%{transform:translateX(1200px)}}
+.rr{animation:bob .6s ease-in-out infinite alternate}
+@keyframes bob{to{transform:translateY(-3px)}}
+@media (max-width:62rem){.hero{grid-template-columns:1fr}.hero h1.emblem{grid-column:1;grid-row:1;justify-self:center;width:min(80vw,22rem);margin-bottom:2rem}.hcopy{grid-row:2}.hero .profile{grid-row:3}}
+@media (prefers-reduced-motion:reduce){.float,.sw,.rr{animation:none}.tilt{transition:none}}
+
+/* Header shows on scroll up */
+.bar{transition:transform .3s ease,background .3s,border-color .3s}
+.bar.stuck{background:var(--bg);border-bottom:1px solid var(--line)}
+.bar.stuck .logo{opacity:1;pointer-events:auto;color:var(--ink)}
+.bar.hide:not(:focus-within){transform:translateY(calc(-100% - env(safe-area-inset-top,0px) - 2px))}
+@media (prefers-reduced-motion:reduce){.bar{transition:none}}
+
+/* Centered countdown */
+.count .wrap{justify-content:center;align-items:baseline;gap:.4rem 1rem;text-align:center}
+.count span.u:last-child{margin-right:0}
+@media (max-width:30rem){.count b{font-size:1.7rem}.count span.u{margin-right:.6rem}}
 </style>
 </head>
 <body>
 <header class="bar"><div class="bar-in">
-  <a class="logo" href="#top">YOUR EVENT</a>
+  <a class="logo" href="#top" aria-label="Benguet Marathon home"><svg class="mk" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="#1b3a2b" stroke="#D9B472" stroke-width="2.5"/><circle cx="31" cy="15" r="3.5" fill="#E9C98A"/><path d="M5 36L17 20L25 30L31 24L43 36Z" fill="#2f6a47"/><path d="M24.0 16.0 L26.4 23.5 L25.1 23.5 L28.2 30.1 L26.1 30.1 L30.4 36.2 L24.5 36.2 L24.5 38.0 L23.5 38.0 L23.5 36.2 L17.6 36.2 L21.9 30.1 L19.8 30.1 L22.9 23.5 L21.6 23.5Z" fill="#D9B472"/></svg><span class="logo-t">BENGUET MARATHON</span></a>
   <button class="burger" id="burger" type="button" aria-label="Open menu" aria-haspopup="dialog" aria-controls="menu"><span></span><span></span></button>
 </div></header>
 <dialog id="menu" aria-label="Menu">
@@ -256,10 +302,29 @@ body.spot .hero:not(.focus),body.spot main>section:not(.focus){opacity:.5}
 <path d="M-20 900 L-20 829.7 L0 838.8 L20 837.8 L40 840.3 L60 839.9 L80 830.2 L100 830.8 L120 839.9 L140 839.9 L160 829.6 L180 820.6 L200 812.2 L220 799.8 L240 806.0 L260 825.3 L280 837.3 L300 839.0 L320 838.8 L340 840.9 L360 833.8 L380 829.8 L400 838.1 L420 841.0 L440 833.4 L460 821.7 L480 815.3 L500 801.1 L520 804.0 L540 820.4 L560 835.0 L580 839.5 L600 836.9 L620 841.2 L640 836.7 L660 830.3 L680 835.6 L700 841.2 L720 836.5 L740 822.6 L760 817.8 L780 805.9 L800 801.8 L820 814.8 L840 831.9 L860 839.3 L880 837.0 L900 840.8 L920 838.9 L940 830.3 L960 832.6 L980 840.6 L1000 838.9 L1020 827.2 L1040 819.7 L1060 810.1 L1080 799.3 L1100 809.0 L1120 827.9 L1140 838.3 L1160 838.4 L1180 839.7 L1200 840.4 L1220 831.8 L1240 829.4 L1260 839.2 L1280 840.5 L1300 831.3 L1320 821.1 L1340 813.6 L1360 800.3 L1380 805.1 L1400 823.3 L1420 836.4 L1440 839.3 L1460 838.1 L1460 900Z" fill="#13231c"/>
 </svg>
     <div class="wrap hero">
-    <h1>Your Event Name</h1>
-    <p class="sub">Add a one-line pitch for your race here: the terrain, the region, and who it is for.</p>
+    <h1 class="emblem"><span class="emb" role="img" aria-label="Benguet Marathon"><span class="tilt"><span class="float"><svg class="ly z1" viewBox="0 0 600 600" aria-hidden="true" focusable="false"><defs>
+<linearGradient id="gb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#EBCE94"/><stop offset=".45" stop-color="#B98F50"/><stop offset=".75" stop-color="#7E5726"/><stop offset="1" stop-color="#C39B5A"/></linearGradient>
+<linearGradient id="gd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F6E1AE"/><stop offset=".55" stop-color="#C79E58"/><stop offset="1" stop-color="#94692F"/></linearGradient>
+<radialGradient id="dg" cx=".5" cy=".4" r=".7"><stop offset="0" stop-color="#2a5a40"/><stop offset="1" stop-color="#0e2219"/></radialGradient>
+<pattern id="wv" width="24" height="8" patternUnits="userSpaceOnUse"><rect width="24" height="8" fill="#121212"/><rect x="3" width="6" height="8" fill="#A3281E"/><rect x="10" width="1.4" height="8" fill="#eee"/><rect x="14" width="6" height="8" fill="#A3281E"/><rect x="21" width="1" height="8" fill="#eee"/></pattern>
+<filter id="bev" x="-5%" y="-5%" width="110%" height="110%"><feGaussianBlur in="SourceAlpha" stdDeviation="2" result="b"/><feSpecularLighting in="b" surfaceScale="5" specularConstant="1.1" specularExponent="24" lighting-color="#fff4d6" result="sp"><feDistantLight azimuth="235" elevation="50"/></feSpecularLighting><feComposite in="sp" in2="SourceAlpha" operator="in" result="s2"/><feComposite in="SourceGraphic" in2="s2" operator="arithmetic" k1="0" k2="1" k3=".6" k4="0"/></filter>
+<filter id="bev2" x="-5%" y="-5%" width="110%" height="110%"><feGaussianBlur in="SourceAlpha" stdDeviation="3.5" result="b"/><feSpecularLighting in="b" surfaceScale="7" specularConstant="1" specularExponent="20" lighting-color="#fff0cc" result="sp"><feDistantLight azimuth="225" elevation="45"/></feSpecularLighting><feComposite in="sp" in2="SourceAlpha" operator="in" result="s2"/><feComposite in="SourceGraphic" in2="s2" operator="arithmetic" k1="0" k2="1" k3=".55" k4="0"/></filter>
+</defs>
+<rect x="236" y="-10" width="128" height="200" fill="url(#wv)"/><rect x="186" y="430" width="228" height="160" fill="url(#wv)"/><rect x="186" y="582" width="228" height="9" fill="#8f1d17"/>
+<g filter="url(#bev2)"><circle cx="300" cy="300" r="238" fill="none" stroke="url(#gb)" stroke-width="32"/><circle cx="300" cy="300" r="238" fill="none" stroke="#3b2810" stroke-opacity=".5" stroke-width="12" stroke-dasharray="3 6"/><path d="M118 150 A255 255 0 0 0 214 528 A330 330 0 0 1 118 150Z" fill="url(#gb)"/><path d="M482 150 A255 255 0 0 1 386 528 A330 330 0 0 0 482 150Z" fill="url(#gb)"/></g></svg><svg class="ly z2" viewBox="0 0 600 600" aria-hidden="true" focusable="false"><defs><clipPath id="dc"><circle cx="300" cy="300" r="208"/></clipPath></defs><circle cx="300" cy="300" r="210" fill="#0b1912"/><g clip-path="url(#dc)"><rect width="600" height="600" fill="url(#dg)"/><path d="M80 340L170 262L225 312L298 240L372 308L432 258L520 340V430H80Z" fill="#2d6a45"/><path d="M80 370L150 312L215 352L300 290L385 350L455 308L520 370V430H80Z" fill="#1f4d35"/><path d="M200.4 395.1 L203.7 407.7 L202.0 407.7 L206.1 418.7 L203.3 418.7 L209.2 429.0 L201.1 429.0 L201.1 432.0 L199.8 432.0 L199.8 429.0 L191.6 429.0 L197.6 418.7 L194.7 418.7 L198.9 407.7 L197.1 407.7Z M250.6 393.9 L253.9 406.9 L252.1 406.9 L256.3 418.3 L253.4 418.3 L259.4 429.0 L251.2 429.0 L251.2 432.0 L249.9 432.0 L249.9 429.0 L241.8 429.0 L247.7 418.3 L244.9 418.3 L249.0 406.9 L247.3 406.9Z M347.8 404.7 L351.1 414.0 L349.3 414.0 L353.5 422.2 L350.6 422.2 L356.6 429.8 L348.4 429.8 L348.4 432.0 L347.1 432.0 L347.1 429.8 L339.0 429.8 L344.9 422.2 L342.1 422.2 L346.2 414.0 L344.5 414.0Z M115.0 389.3 L118.3 403.8 L116.5 403.8 L120.7 416.6 L117.9 416.6 L123.8 428.6 L115.7 428.6 L115.7 432.0 L114.3 432.0 L114.3 428.6 L106.2 428.6 L112.1 416.6 L109.3 416.6 L113.5 403.8 L111.7 403.8Z M208.6 401.3 L211.9 411.7 L210.1 411.7 L214.3 421.0 L211.4 421.0 L217.4 429.5 L209.2 429.5 L209.2 432.0 L207.9 432.0 L207.9 429.5 L199.8 429.5 L205.7 421.0 L202.8 421.0 L207.0 411.7 L205.3 411.7Z M488.3 396.6 L491.6 408.6 L489.9 408.6 L494.1 419.3 L491.2 419.3 L497.1 429.2 L489.0 429.2 L489.0 432.0 L487.7 432.0 L487.7 429.2 L479.5 429.2 L485.5 419.3 L482.6 419.3 L486.8 408.6 L485.0 408.6Z M427.9 396.5 L431.2 408.6 L429.4 408.6 L433.6 419.2 L430.7 419.2 L436.7 429.2 L428.5 429.2 L428.5 432.0 L427.2 432.0 L427.2 429.2 L419.1 429.2 L425.0 419.2 L422.1 419.2 L426.3 408.6 L424.6 408.6Z M352.8 403.0 L356.1 412.9 L354.4 412.9 L358.6 421.6 L355.7 421.6 L361.6 429.7 L353.5 429.7 L353.5 432.0 L352.2 432.0 L352.2 429.7 L344.0 429.7 L350.0 421.6 L347.1 421.6 L351.3 412.9 L349.5 412.9Z M351.2 388.6 L354.5 403.4 L352.8 403.4 L357.0 416.4 L354.1 416.4 L360.0 428.5 L351.9 428.5 L351.9 432.0 L350.6 432.0 L350.6 428.5 L342.4 428.5 L348.4 416.4 L345.5 416.4 L349.7 403.4 L347.9 403.4Z M308.8 391.2 L312.1 405.1 L310.3 405.1 L314.5 417.3 L311.7 417.3 L317.6 428.7 L309.5 428.7 L309.5 432.0 L308.1 432.0 L308.1 428.7 L300.0 428.7 L305.9 417.3 L303.1 417.3 L307.3 405.1 L305.5 405.1Z M365.1 404.7 L368.4 414.0 L366.7 414.0 L370.9 422.2 L368.0 422.2 L373.9 429.8 L365.8 429.8 L365.8 432.0 L364.5 432.0 L364.5 429.8 L356.3 429.8 L362.3 422.2 L359.4 422.2 L363.6 414.0 L361.8 414.0Z M398.1 394.2 L401.4 407.0 L399.7 407.0 L403.8 418.4 L401.0 418.4 L406.9 429.0 L398.8 429.0 L398.8 432.0 L397.5 432.0 L397.5 429.0 L389.3 429.0 L395.3 418.4 L392.4 418.4 L396.6 407.0 L394.8 407.0Z M224.5 405.4 L227.8 414.4 L226.0 414.4 L230.2 422.4 L227.3 422.4 L233.3 429.9 L225.1 429.9 L225.1 432.0 L223.8 432.0 L223.8 429.9 L215.7 429.9 L221.6 422.4 L218.8 422.4 L222.9 414.4 L221.2 414.4Z M438.9 396.5 L442.2 408.6 L440.4 408.6 L444.6 419.2 L441.8 419.2 L447.7 429.2 L439.6 429.2 L439.6 432.0 L438.2 432.0 L438.2 429.2 L430.1 429.2 L436.0 419.2 L433.2 419.2 L437.4 408.6 L435.6 408.6Z M383.2 388.4 L386.5 403.2 L384.7 403.2 L388.9 416.3 L386.0 416.3 L392.0 428.5 L383.8 428.5 L383.8 432.0 L382.5 432.0 L382.5 428.5 L374.4 428.5 L380.3 416.3 L377.4 416.3 L381.6 403.2 L379.9 403.2Z M381.4 387.6 L384.7 402.7 L382.9 402.7 L387.1 416.0 L384.2 416.0 L390.2 428.4 L382.0 428.4 L382.0 432.0 L380.7 432.0 L380.7 428.4 L372.6 428.4 L378.5 416.0 L375.6 416.0 L379.8 402.7 L378.1 402.7Z M260.1 390.0 L263.4 404.3 L261.6 404.3 L265.8 416.9 L262.9 416.9 L268.9 428.6 L260.7 428.6 L260.7 432.0 L259.4 432.0 L259.4 428.6 L251.3 428.6 L257.2 416.9 L254.4 416.9 L258.5 404.3 L256.8 404.3Z M279.0 387.3 L282.3 402.5 L280.5 402.5 L284.7 415.9 L281.8 415.9 L287.8 428.4 L279.6 428.4 L279.6 432.0 L278.3 432.0 L278.3 428.4 L270.2 428.4 L276.1 415.9 L273.2 415.9 L277.4 402.5 L275.7 402.5Z M444.0 404.1 L447.3 413.6 L445.5 413.6 L449.7 421.9 L446.8 421.9 L452.8 429.8 L444.6 429.8 L444.6 432.0 L443.3 432.0 L443.3 429.8 L435.2 429.8 L441.1 421.9 L438.2 421.9 L442.4 413.6 L440.7 413.6Z M161.7 401.7 L165.0 412.0 L163.2 412.0 L167.4 421.1 L164.5 421.1 L170.5 429.6 L162.3 429.6 L162.3 432.0 L161.0 432.0 L161.0 429.6 L152.9 429.6 L158.8 421.1 L155.9 421.1 L160.1 412.0 L158.4 412.0Z M476.9 397.3 L480.2 409.1 L478.4 409.1 L482.6 419.5 L479.7 419.5 L485.7 429.2 L477.5 429.2 L477.5 432.0 L476.2 432.0 L476.2 429.2 L468.1 429.2 L474.0 419.5 L471.2 419.5 L475.3 409.1 L473.6 409.1Z M348.1 400.0 L351.4 410.9 L349.7 410.9 L353.8 420.5 L351.0 420.5 L356.9 429.4 L348.8 429.4 L348.8 432.0 L347.5 432.0 L347.5 429.4 L339.3 429.4 L345.3 420.5 L342.4 420.5 L346.6 410.9 L344.8 410.9Z M302.8 398.3 L306.1 409.7 L304.3 409.7 L308.5 419.9 L305.6 419.9 L311.6 429.3 L303.4 429.3 L303.4 432.0 L302.1 432.0 L302.1 429.3 L294.0 429.3 L299.9 419.9 L297.0 419.9 L301.2 409.7 L299.5 409.7Z M243.3 394.3 L246.6 407.1 L244.9 407.1 L249.1 418.4 L246.2 418.4 L252.1 429.0 L244.0 429.0 L244.0 432.0 L242.7 432.0 L242.7 429.0 L234.5 429.0 L240.5 418.4 L237.6 418.4 L241.8 407.1 L240.0 407.1Z M332.0 387.9 L335.3 402.9 L333.6 402.9 L337.7 416.1 L334.9 416.1 L340.8 428.5 L332.7 428.5 L332.7 432.0 L331.4 432.0 L331.4 428.5 L323.2 428.5 L329.2 416.1 L326.3 416.1 L330.5 402.9 L328.7 402.9Z M369.2 387.4 L372.5 402.6 L370.7 402.6 L374.9 416.0 L372.0 416.0 L378.0 428.4 L369.8 428.4 L369.8 432.0 L368.5 432.0 L368.5 428.4 L360.4 428.4 L366.3 416.0 L363.4 416.0 L367.6 402.6 L365.9 402.6Z " fill="#0d2318"/><rect y="430" width="600" height="170" fill="#0e2219"/></g></svg><svg class="ly z3" viewBox="0 0 600 600" aria-hidden="true" focusable="false"><defs>
+<g id="tx" font-family="Fraunces,Georgia,serif" font-weight="600" text-anchor="middle"><text x="144.0" y="270" font-size="80">B</text><text x="196.0" y="270" font-size="80">E</text><text x="248.0" y="270" font-size="80">N</text><text x="300.0" y="270" font-size="80">G</text><text x="352.0" y="270" font-size="80">U</text><text x="404.0" y="270" font-size="80">E</text><text x="456.0" y="270" font-size="80">T</text><text x="142.5" y="392" font-size="60">M</text><path d="M187.5 348.0 L195.6 363.0 L191.3 363.0 L201.5 376.2 L194.5 376.2 L209.1 388.5 L189.1 388.5 L189.1 392.0 L185.9 392.0 L185.9 388.5 L165.9 388.5 L180.5 376.2 L173.5 376.2 L183.7 363.0 L179.4 363.0Z"/><text x="232.5" y="392" font-size="60">R</text><path d="M277.5 348.0 L285.6 363.0 L281.3 363.0 L291.5 376.2 L284.5 376.2 L299.1 388.5 L279.1 388.5 L279.1 392.0 L275.9 392.0 L275.9 388.5 L255.9 388.5 L270.5 376.2 L263.5 376.2 L273.7 363.0 L269.4 363.0Z"/><text x="322.5" y="392" font-size="60">T</text><text x="367.5" y="392" font-size="60">H</text><text x="412.5" y="392" font-size="60">O</text><text x="457.5" y="392" font-size="60">N</text></g>
+<symbol id="rn" viewBox="0 0 20 28"><g fill="none" stroke="#E4C686" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 8L9 17M10 10L16 13L18 10M10 10L5 12M9 17L14 21L13 27M9 17L5 22L1 24"/></g><circle cx="12" cy="4" r="3" fill="#E4C686"/></symbol>
+<mask id="sm" maskUnits="userSpaceOnUse" x="0" y="0" width="600" height="600"><use href="#tx" fill="#fff"/></mask>
+<linearGradient id="sh" x1="0" y1="0" x2="1" y2="0"><stop offset=".3" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".9"/><stop offset=".7" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>
+<ellipse cx="392" cy="448" rx="32" ry="10" transform="rotate(62 392 448)" fill="url(#gb)" stroke="#3b2810" stroke-width="2"/><ellipse cx="370" cy="456" rx="35" ry="11" transform="rotate(38 370 456)" fill="url(#gb)" stroke="#3b2810" stroke-width="2"/><ellipse cx="346" cy="460" rx="33" ry="11" transform="rotate(14 346 460)" fill="url(#gb)" stroke="#3b2810" stroke-width="2"/><ellipse cx="418" cy="436" rx="26" ry="8" transform="rotate(80 418 436)" fill="url(#gb)" stroke="#3b2810" stroke-width="2"/><ellipse cx="208" cy="448" rx="32" ry="10" transform="rotate(-62 208 448)" fill="url(#gb)" stroke="#3b2810" stroke-width="2"/><ellipse cx="230" cy="456" rx="35" ry="11" transform="rotate(-38 230 456)" fill="url(#gb)" stroke="#3b2810" stroke-width="2"/><ellipse cx="254" cy="460" rx="33" ry="11" transform="rotate(-14 254 460)" fill="url(#gb)" stroke="#3b2810" stroke-width="2"/><ellipse cx="182" cy="436" rx="26" ry="8" transform="rotate(-80 182 436)" fill="url(#gb)" stroke="#3b2810" stroke-width="2"/><path d="M300 482L284 458L300 465L316 458Z M298 440H302V470H298Z" fill="#6e7d58"/>
+<use href="#tx" x="6.3" y="8.8" fill="#4a3212"/><use href="#tx" x="5.4" y="7.5" fill="#4a3212"/><use href="#tx" x="4.5" y="6.2" fill="#4a3212"/><use href="#tx" x="3.6" y="5.0" fill="#4a3212"/><use href="#tx" x="2.7" y="3.8" fill="#4a3212"/><use href="#tx" x="1.8" y="2.5" fill="#4a3212"/><use href="#tx" x="0.9" y="1.2" fill="#4a3212"/><use href="#tx" fill="#0d1f16" stroke="#0d1f16" stroke-width="9" stroke-linejoin="round"/>
+<use href="#tx" fill="url(#gd)" filter="url(#bev)"/>
+<g mask="url(#sm)"><rect class="sw" x="-300" y="190" width="240" height="230" fill="url(#sh)" transform="skewX(-18)"/></g>
+<g class="rr" style="animation-delay:-0.00s"><use href="#rn" x="228" y="284" width="20" height="28"/></g><g class="rr" style="animation-delay:-0.17s"><use href="#rn" x="258" y="284" width="20" height="28"/></g><g class="rr" style="animation-delay:-0.34s"><use href="#rn" x="288" y="284" width="20" height="28"/></g><g class="rr" style="animation-delay:-0.51s"><use href="#rn" x="318" y="284" width="20" height="28"/></g><g class="rr" style="animation-delay:-0.68s"><use href="#rn" x="348" y="284" width="20" height="28"/></g></svg><svg class="ly z4" viewBox="0 0 600 600" aria-hidden="true" focusable="false"><circle cx="127.6" cy="520.6" r="7" fill="#B3261E" stroke="#1a1208" stroke-width="1.5"/><circle cx="104.8" cy="500.7" r="7" fill="#D9B472" stroke="#1a1208" stroke-width="1.5"/><circle cx="84.3" cy="478.5" r="7" fill="#9aa0a0" stroke="#1a1208" stroke-width="1.5"/><circle cx="66.2" cy="454.1" r="7" fill="#B3261E" stroke="#1a1208" stroke-width="1.5"/><circle cx="51.0" cy="428.0" r="7" fill="#D9B472" stroke="#1a1208" stroke-width="1.5"/><circle cx="38.6" cy="400.3" r="7" fill="#B3261E" stroke="#1a1208" stroke-width="1.5"/><circle cx="29.3" cy="371.5" r="7" fill="#D9B472" stroke="#1a1208" stroke-width="1.5"/><circle cx="23.1" cy="341.9" r="7" fill="#9aa0a0" stroke="#1a1208" stroke-width="1.5"/><circle cx="20.2" cy="311.7" r="7" fill="#B3261E" stroke="#1a1208" stroke-width="1.5"/><circle cx="20.6" cy="281.4" r="7" fill="#D9B472" stroke="#1a1208" stroke-width="1.5"/><circle cx="24.3" cy="251.4" r="7" fill="#B3261E" stroke="#1a1208" stroke-width="1.5"/><circle cx="31.1" cy="221.9" r="7" fill="#D9B472" stroke="#1a1208" stroke-width="1.5"/><circle cx="41.1" cy="193.3" r="7" fill="#9aa0a0" stroke="#1a1208" stroke-width="1.5"/><circle cx="54.2" cy="166.0" r="7" fill="#B3261E" stroke="#1a1208" stroke-width="1.5"/><circle cx="70.1" cy="140.2" r="7" fill="#D9B472" stroke="#1a1208" stroke-width="1.5"/><circle cx="88.7" cy="116.3" r="7" fill="#B3261E" stroke="#1a1208" stroke-width="1.5"/><circle cx="109.8" cy="94.6" r="7" fill="#D9B472" stroke="#1a1208" stroke-width="1.5"/><circle cx="472.4" cy="520.6" r="7" fill="#B3261E" stroke="#1a1208" stroke-width="1.5"/><circle cx="495.2" cy="500.7" r="7" fill="#D9B472" stroke="#1a1208" stroke-width="1.5"/><circle cx="515.7" cy="478.5" r="7" fill="#9aa0a0" stroke="#1a1208" stroke-width="1.5"/><circle cx="533.8" cy="454.1" r="7" fill="#B3261E" stroke="#1a1208" stroke-width="1.5"/><circle cx="549.0" cy="428.0" r="7" fill="#D9B472" stroke="#1a1208" stroke-width="1.5"/><circle cx="561.4" cy="400.3" r="7" fill="#B3261E" stroke="#1a1208" stroke-width="1.5"/><circle cx="570.7" cy="371.5" r="7" fill="#D9B472" stroke="#1a1208" stroke-width="1.5"/><circle cx="576.9" cy="341.9" r="7" fill="#9aa0a0" stroke="#1a1208" stroke-width="1.5"/><circle cx="579.8" cy="311.7" r="7" fill="#B3261E" stroke="#1a1208" stroke-width="1.5"/><circle cx="579.4" cy="281.4" r="7" fill="#D9B472" stroke="#1a1208" stroke-width="1.5"/><circle cx="575.7" cy="251.4" r="7" fill="#B3261E" stroke="#1a1208" stroke-width="1.5"/><circle cx="568.9" cy="221.9" r="7" fill="#D9B472" stroke="#1a1208" stroke-width="1.5"/><circle cx="558.9" cy="193.3" r="7" fill="#9aa0a0" stroke="#1a1208" stroke-width="1.5"/><circle cx="545.8" cy="166.0" r="7" fill="#B3261E" stroke="#1a1208" stroke-width="1.5"/><circle cx="529.9" cy="140.2" r="7" fill="#D9B472" stroke="#1a1208" stroke-width="1.5"/><circle cx="511.3" cy="116.3" r="7" fill="#B3261E" stroke="#1a1208" stroke-width="1.5"/><circle cx="490.2" cy="94.6" r="7" fill="#D9B472" stroke="#1a1208" stroke-width="1.5"/></svg></span></span></span></h1>
+    <div class="hcopy"><p class="sub">Add a one-line pitch for your race here: the terrain, the region, and who it is for.</p>
     <div class="facts"><span>Date: [Event date]</span><span>Location: [Town, Province]</span><span>Distances: [10K / 21K / 50K]</span></div>
     <a class="btn" href="https://app.teammalaya.org" target="_blank" rel="noopener">Register now</a><a class="btn alt" href="#races">See race categories</a>
+    </div>
     <svg class="profile" viewBox="0 0 1000 220" role="img" aria-label="Sample elevation profile of the course">
       <path class="area" d="M0 220 L0 170 L60 150 L120 160 L190 110 L250 120 L320 60 L380 80 L440 40 L500 90 L560 130 L620 70 L690 100 L760 50 L830 95 L900 140 L1000 120 L1000 220Z"/>
       <path class="ln" d="M0 170 L60 150 L120 160 L190 110 L250 120 L320 60 L380 80 L440 40 L500 90 L560 130 L620 70 L690 100 L760 50 L830 95 L900 140 L1000 120"/>
@@ -302,7 +367,7 @@ body.spot .hero:not(.focus),body.spot main>section:not(.focus){opacity:.5}
   <section id="gallery"><div class="wrap">
     <div class="gt">
       <p class="eyebrow">Gallery</p>
-      <h2>See <em>what awaits.</em></h2>
+      <h2>Lorem <em>ipsum.</em></h2>
       <p class="gsub">The trails in every frame. See what runners see.</p>
       <a class="btn gbtn" href="#/gallery">Open gallery <span aria-hidden="true">&rsaquo;</span></a>
       <svg class="wave" viewBox="0 0 1000 30" preserveAspectRatio="none" aria-hidden="true"><path d="M0 30V14L80 10 170 16 270 8 380 15 480 9 590 16 690 8 800 15 900 10 1000 14V30Z" fill="var(--bg)"/></svg>
@@ -346,13 +411,14 @@ body.spot .hero:not(.focus),body.spot main>section:not(.focus){opacity:.5}
   <div class="wrap gp-head">
     <a class="back" href="#top">&larr; Back to home</a>
     <p class="eyebrow">Gallery</p>
-    <h1>See <em>what awaits.</em></h1>
+    <h1>Lorem <em>ipsum.</em></h1>
     <p class="gsub2">Add a line about your trails, your region, and what makes this race unlike any other.</p>
   </div>
   <div class="wrap"><div class="masonry" id="mas"></div><p class="note">Placeholder images. Replace them with your own event photos.</p></div>
 </main>
 <dialog id="lb" aria-label="Photo viewer"><button class="x" aria-label="Close photo">&times;</button><div id="lbc"></div></dialog>
 
+<button class="totop" id="totop" type="button" aria-label="Back to top"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 <footer><div class="wrap">
   <span>© [Year] [Organizer name]. All rights reserved.</span>
   <span>Contact: [email] · [Facebook / Instagram]</span>
@@ -366,11 +432,11 @@ body.spot .hero:not(.focus),body.spot main>section:not(.focus){opacity:.5}
   function tick(){
     var ms=target-new Date();
     if(ms<=0){el.innerHTML="<b>Race day</b>";return}
-    var d=Math.floor(ms/864e5),h=Math.floor(ms%864e5/36e5),m=Math.floor(ms%36e5/6e4);
+    var d=Math.floor(ms/864e5),h=Math.floor(ms%864e5/36e5),m=Math.floor(ms%36e5/6e4);var sc=Math.floor(ms%6e4/1e3);
     var bm=(window._lm!==undefined&&window._lm!==m)?" class='bump'":"";window._lm=m;
-    el.innerHTML="<b>"+d+"</b><span class='u'>days</span><b>"+pad(h)+"</b><span class='u'>hours</span><b"+bm+">"+pad(m)+"</b><span class='u'>minutes</span>";
+    el.innerHTML="<b>"+d+"</b><span class='u'>days</span><b>"+pad(h)+"</b><span class='u'>hours</span><b"+bm+">"+pad(m)+"</b><span class='u'>minutes</span><b>"+pad(sc)+"</b><span class='u'>seconds</span>";
   }
-  tick();setInterval(tick,30000);
+  tick();setInterval(tick,1000);
 })();
 </script>
 <script>
@@ -397,9 +463,19 @@ body.spot .hero:not(.focus),body.spot main>section:not(.focus){opacity:.5}
     for(var k in links)links[k].removeAttribute("aria-current");
     if(el.id&&links[el.id])links[el.id].setAttribute("aria-current","true");
   }
-  var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)setActive(e.target)})},{rootMargin:"-45% 0px -50% 0px"});
-  items.forEach(function(i){obs.observe(i)});
-  setActive(items[0]);
+  function atEnd(){return window.innerHeight+window.scrollY>=document.documentElement.scrollHeight-4}
+  function pick(){
+    var y=window.innerHeight*.5,best=items[0];
+    if(atEnd())best=items[items.length-1];
+    else items.forEach(function(i){var r=i.getBoundingClientRect();if(r.height&&r.top<=y)best=i});
+    setActive(best);
+  }
+  var busy=false;
+  function onS(){if(!busy){busy=true;requestAnimationFrame(function(){busy=false;pick()})}}
+  window.addEventListener("scroll",onS,{passive:true});
+  window.addEventListener("resize",onS);
+  window.addEventListener("hashchange",onS);
+  pick();
 })();
 </script>
 <script>
@@ -430,7 +506,7 @@ body.spot .hero:not(.focus),body.spot main>section:not(.focus){opacity:.5}
     var g=location.hash==="#/gallery";
     document.body.classList.toggle("view-gallery",g);
     main.hidden=g;gp.hidden=!g;
-    document.title=g?"Gallery – Your Event Name":homeTitle;
+    document.title=g?"Gallery – Benguet Marathon":homeTitle;
     if(g){window.scrollTo(0,0)}
     else{var id=location.hash.slice(1),t=id&&document.getElementById(id);if(t)t.scrollIntoView();else window.scrollTo(0,0)}
   }
@@ -444,6 +520,35 @@ body.spot .hero:not(.focus),body.spot main>section:not(.focus){opacity:.5}
   b.onclick=function(){m.showModal()};
   m.querySelector(".mx").onclick=function(){m.close()};
   m.addEventListener("click",function(e){if(e.target===m||e.target.closest("a"))m.close()});
+})();
+</script>
+<script>
+(function(){
+  var t=document.getElementById("totop"),rm=window.matchMedia("(prefers-reduced-motion: reduce)");
+  function v(){t.classList.toggle("show",window.scrollY>500)}
+  window.addEventListener("scroll",v,{passive:true});v();
+  t.onclick=function(){window.scrollTo({top:0,behavior:rm.matches?"auto":"smooth"})};
+})();
+</script>
+<script>
+(function(){
+  var sc=document.querySelector(".scene"),t=document.querySelector(".tilt");
+  if(!sc||!t||window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;
+  sc.addEventListener("pointermove",function(e){var r=sc.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;t.style.setProperty("--ry",(x*18).toFixed(1)+"deg");t.style.setProperty("--rx",(-y*12).toFixed(1)+"deg")});
+  sc.addEventListener("pointerleave",function(){t.style.setProperty("--ry","0deg");t.style.setProperty("--rx","0deg")});
+})();
+</script>
+<script>
+(function(){
+  var bar=document.querySelector(".bar"),last=window.scrollY,busy=false;
+  function f(){
+    busy=false;var y=window.scrollY,d=y-last;
+    if(y<120)bar.classList.remove("hide");
+    else if(d>6)bar.classList.add("hide");
+    else if(d<-6)bar.classList.remove("hide");
+    if(Math.abs(d)>6||y<120)last=y;
+  }
+  window.addEventListener("scroll",function(){if(!busy){busy=true;requestAnimationFrame(f)}},{passive:true});
 })();
 </script>
 </body>
