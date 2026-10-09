@@ -265,6 +265,25 @@ body.spot .hero:not(.focus),body.spot main>section:not(.focus){opacity:.5}
 .count .wrap{justify-content:center;align-items:baseline;gap:.4rem 1rem;text-align:center}
 .count span.u:last-child{margin-right:0}
 @media (max-width:30rem){.count b{font-size:1.7rem}.count span.u{margin-right:.6rem}}
+
+/* Interactive elevation */
+.pwrap{grid-column:1/-1;grid-row:2;position:relative}
+.pwrap .profile{touch-action:pan-y;cursor:pointer;-webkit-user-select:none;user-select:none}
+#runner{cursor:grab;transform-box:fill-box;transform-origin:center;transition:transform .15s}
+.pwrap.dragging #runner{cursor:grabbing;transform:scale(1.25)}
+#runner:focus-visible{outline:3px solid #fff;outline-offset:3px}
+.ptip{position:absolute;z-index:3;pointer-events:none;transform:translate(-50%,calc(-100% - 22px));background:rgba(12,22,17,.82);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border:1px solid rgba(244,241,234,.2);border-radius:.6rem;padding:.45rem .85rem;color:#F4F1EA;text-align:center;line-height:1.2;white-space:nowrap;opacity:0;transition:opacity .3s}
+.ptip.on{opacity:1}
+.ptip b{display:block;font:400 1.35rem "Fraunces",Georgia,serif}
+.ptip span{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;opacity:.75}
+.phint{margin:.5rem 0 0;font-size:.8rem;letter-spacing:.06em;color:rgba(244,241,234,.6)}
+@media (max-width:62rem){.pwrap{grid-row:3}}
+@media (prefers-reduced-motion:reduce){#runner,.ptip{transition:none}}
+
+/* Hover to explore */
+.pwrap.hov #runner{transform:scale(1.25)}
+.ht-hover{display:none}
+@media (hover:hover) and (pointer:fine){.ht-hover{display:inline}.ht-touch{display:none}.pwrap .profile{cursor:crosshair}}
 </style>
 </head>
 <body>
@@ -325,16 +344,19 @@ body.spot .hero:not(.focus),body.spot main>section:not(.focus){opacity:.5}
     <div class="facts"><span>Date: [Event date]</span><span>Location: [Town, Province]</span><span>Distances: [10K / 21K / 50K]</span></div>
     <a class="btn" href="https://app.teammalaya.org" target="_blank" rel="noopener">Register now</a><a class="btn alt" href="#races">See race categories</a>
     </div>
+    <div class="pwrap"><div class="ptip" id="ptip" aria-hidden="true"></div>
     <svg class="profile" viewBox="0 0 1000 220" role="img" aria-label="Sample elevation profile of the course">
       <path class="area" d="M0 220 L0 170 L60 150 L120 160 L190 110 L250 120 L320 60 L380 80 L440 40 L500 90 L560 130 L620 70 L690 100 L760 50 L830 95 L900 140 L1000 120 L1000 220Z"/>
       <path class="ln" d="M0 170 L60 150 L120 160 L190 110 L250 120 L320 60 L380 80 L440 40 L500 90 L560 130 L620 70 L690 100 L760 50 L830 95 L900 140 L1000 120"/>
-      <text x="440" y="20" text-anchor="middle">Highest point [0000 m]</text>
+      <text id="pk" x="440" y="20" text-anchor="middle">Highest point [0000 m]</text>
       <text x="4" y="205">Start</text>
       <text x="1000" y="205" text-anchor="end">Finish</text>
       <g class="pts"><circle cx="0" cy="170" r="7"/><circle cx="440" cy="40" r="7"/><circle cx="1000" cy="120" r="7"/></g>
-      <circle id="runner" r="11" cx="0" cy="0" fill="var(--accent)" stroke="#fff" stroke-width="4"><animateMotion dur="2.6s" fill="freeze" calcMode="linear" path="M0 170 L60 150 L120 160 L190 110 L250 120 L320 60 L380 80 L440 40 L500 90 L560 130 L620 70 L690 100 L760 50 L830 95 L900 140 L1000 120"/></circle>
+      <line id="pguide" x1="0" y1="170" x2="0" y2="196" stroke="rgba(244,241,234,.4)" stroke-width="1.5" stroke-dasharray="4 5"/>
+      <circle id="runner" r="11" cx="0" cy="170" fill="var(--accent)" stroke="#fff" stroke-width="4" tabindex="0" role="slider" aria-label="Course position" aria-valuemin="0" aria-valuemax="42.2" aria-valuenow="0"/>
       <circle id="ring" cx="1000" cy="120" r="7" fill="none" stroke="var(--accent)" stroke-width="2" opacity="0"/>
     </svg>
+    <p class="phint"><span class="ht-hover">Move your cursor over the graph to explore the course</span><span class="ht-touch">Drag the dot to explore the course</span></p></div>
   </div>
   </div>
 
@@ -368,7 +390,7 @@ body.spot .hero:not(.focus),body.spot main>section:not(.focus){opacity:.5}
     <div class="gt">
       <p class="eyebrow">Gallery</p>
       <h2>Lorem <em>ipsum.</em></h2>
-      <p class="gsub">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Neque, omnis.</p>
+      <p class="gsub">The trails in every frame. See what runners see.</p>
       <a class="btn gbtn" href="#/gallery">Open gallery <span aria-hidden="true">&rsaquo;</span></a>
       <svg class="wave" viewBox="0 0 1000 30" preserveAspectRatio="none" aria-hidden="true"><path d="M0 30V14L80 10 170 16 270 8 380 15 480 9 590 16 690 8 800 15 900 10 1000 14V30Z" fill="var(--bg)"/></svg>
     </div>
@@ -549,6 +571,50 @@ body.spot .hero:not(.focus),body.spot main>section:not(.focus){opacity:.5}
     if(Math.abs(d)>6||y<120)last=y;
   }
   window.addEventListener("scroll",function(){if(!busy){busy=true;requestAnimationFrame(f)}},{passive:true});
+})();
+</script>
+<script>
+(function(){
+  /* Placeholder course data: replace with your real numbers */
+  var EMIN=1200,EMAX=2400,KM=42.2;
+  var P=[[0,170],[60,150],[120,160],[190,110],[250,120],[320,60],[380,80],[440,40],[500,90],[560,130],[620,70],[690,100],[760,50],[830,95],[900,140],[1000,120]];
+  var svg=document.querySelector(".profile"),wrap=document.querySelector(".pwrap"),dot=document.getElementById("runner"),
+      tip=document.getElementById("ptip"),g=document.getElementById("pguide"),pk=document.getElementById("pk");
+  if(!svg||!dot)return;
+  var cur=0,drag=false,stopped=false;
+  function yAt(x){for(var i=0;i<P.length-1;i++){if(x<=P[i+1][0]){var a=P[i],b=P[i+1];return a[1]+(b[1]-a[1])*(x-a[0])/(b[0]-a[0])}}return P[P.length-1][1]}
+  function set(x){
+    x=Math.max(0,Math.min(1000,x));cur=x;var y=yAt(x);
+    var e=Math.round((EMIN+(170-y)/130*(EMAX-EMIN))/5)*5,km=(x/1000*KM).toFixed(1);
+    dot.setAttribute("cx",x);dot.setAttribute("cy",y);
+    g.setAttribute("x1",x);g.setAttribute("x2",x);g.setAttribute("y1",y);
+    tip.innerHTML="<b>"+e.toLocaleString("en-US")+" m</b><span>km "+km+"</span>";
+    var r=svg.getBoundingClientRect(),w=wrap.getBoundingClientRect();
+    tip.style.left=Math.max(60,Math.min(r.width-60,x/1000*r.width))+"px";
+    tip.style.top=(r.top-w.top+y/220*r.height)+"px";
+    dot.setAttribute("aria-valuenow",km);dot.setAttribute("aria-valuetext","km "+km+", elevation "+e+" metres");
+    if(pk)pk.style.opacity=Math.abs(x-440)<100?0:1;
+  }
+  function X(ev){var r=svg.getBoundingClientRect();return(ev.clientX-r.left)/r.width*1000}
+  function take(){stopped=true;tip.classList.add("on")}
+  svg.addEventListener("pointerdown",function(ev){take();drag=true;wrap.classList.add("dragging");try{svg.setPointerCapture(ev.pointerId)}catch(e){}set(X(ev))});
+  svg.addEventListener("pointermove",function(ev){
+    if(ev.pointerType==="mouse"){if(!stopped)take();set(X(ev))}else if(drag)set(X(ev));
+  });
+  svg.addEventListener("pointerenter",function(ev){if(ev.pointerType==="mouse"){take();wrap.classList.add("hov");set(X(ev))}});
+  svg.addEventListener("pointerleave",function(ev){if(ev.pointerType==="mouse")wrap.classList.remove("hov")});
+  function end(){drag=false;wrap.classList.remove("dragging")}
+  svg.addEventListener("pointerup",end);svg.addEventListener("pointercancel",end);
+  dot.addEventListener("keydown",function(ev){
+    var st=ev.shiftKey?50:10,k=ev.key,n=null;
+    if(k==="ArrowRight"||k==="ArrowUp")n=cur+st;else if(k==="ArrowLeft"||k==="ArrowDown")n=cur-st;else if(k==="Home")n=0;else if(k==="End")n=1000;
+    if(n!==null){ev.preventDefault();take();set(n)}
+  });
+  window.addEventListener("resize",function(){set(cur)});
+  if(window.matchMedia("(prefers-reduced-motion: reduce)").matches){set(1000);tip.classList.add("on");return}
+  set(0);var t0=null;
+  function step(ts){if(stopped)return;if(!t0)t0=ts;var t=Math.min((ts-t0)/2600,1);set(1000*(1-Math.pow(1-t,2)));if(t<1)requestAnimationFrame(step);else tip.classList.add("on")}
+  requestAnimationFrame(step);
 })();
 </script>
 </body>
