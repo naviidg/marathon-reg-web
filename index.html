@@ -231,9 +231,9 @@ body.spot .hero:not(.focus),body.spot main>section:not(.focus){opacity:.5}
 .hero h1.lockup{font-size:0;line-height:0;margin:0 0 .5rem}
 .lockup svg{width:min(100%,40rem);height:auto;display:block;overflow:visible;filter:drop-shadow(0 6px 18px rgba(0,0,0,.35))}
 .bar .logo{display:flex;align-items:center;gap:.65rem}
-.mk{width:2.4rem;height:2.4rem;flex:none}
+.mk{width:3rem;height:3rem;flex:none;overflow:visible;filter:drop-shadow(0 2px 6px rgba(0,0,0,.35))}
 .logo-t{font:400 .95rem "Fraunces",Georgia,serif;letter-spacing:.16em}
-@media (max-width:30rem){.logo-t{display:none}}
+
 
 /* 3D emblem */
 .hero{display:grid;grid-template-columns:minmax(0,1fr) min(27rem,42%);column-gap:3rem;align-items:center}
@@ -284,11 +284,38 @@ body.spot .hero:not(.focus),body.spot main>section:not(.focus){opacity:.5}
 .pwrap.hov #runner{transform:scale(1.25)}
 .ht-hover{display:none}
 @media (hover:hover) and (pointer:fine){.ht-hover{display:inline}.ht-touch{display:none}.pwrap .profile{cursor:crosshair}}
+
+/* Mobile header */
+.bar .logo{min-width:0}
+.logo-t{white-space:nowrap}
+@media (max-width:40rem){
+  .bar-in{padding:.75rem 1rem}
+  .bar .logo{gap:.5rem}
+  .mk{width:2.1rem;height:2.1rem}
+  .logo-t{font-size:.72rem;letter-spacing:.1em}
+  .burger{width:2.75rem;height:2.75rem}
+}
 </style>
 </head>
 <body>
 <header class="bar"><div class="bar-in">
-  <a class="logo" href="#top" aria-label="Benguet Marathon home"><svg class="mk" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="22" fill="#1b3a2b" stroke="#D9B472" stroke-width="2.5"/><circle cx="31" cy="15" r="3.5" fill="#E9C98A"/><path d="M5 36L17 20L25 30L31 24L43 36Z" fill="#2f6a47"/><path d="M24.0 16.0 L26.4 23.5 L25.1 23.5 L28.2 30.1 L26.1 30.1 L30.4 36.2 L24.5 36.2 L24.5 38.0 L23.5 38.0 L23.5 36.2 L17.6 36.2 L21.9 30.1 L19.8 30.1 L22.9 23.5 L21.6 23.5Z" fill="#D9B472"/></svg><span class="logo-t">BENGUET MARATHON</span></a>
+  <a class="logo" href="#top" aria-label="Benguet Marathon home"><svg class="mk" viewBox="0 0 600 600" aria-hidden="true" focusable="false"><defs>
+<linearGradient id="mgb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#EBCE94"/><stop offset=".45" stop-color="#B98F50"/><stop offset=".75" stop-color="#7E5726"/><stop offset="1" stop-color="#C39B5A"/></linearGradient>
+<linearGradient id="mgd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F6E1AE"/><stop offset=".55" stop-color="#C79E58"/><stop offset="1" stop-color="#94692F"/></linearGradient>
+<radialGradient id="mdg" cx=".5" cy=".4" r=".7"><stop offset="0" stop-color="#2f6447"/><stop offset="1" stop-color="#0e2219"/></radialGradient>
+<pattern id="mwv" width="36" height="8" patternUnits="userSpaceOnUse"><rect width="36" height="8" fill="#121212"/><rect x="4.5" width="9" height="8" fill="#A3281E"/><rect x="15" width="2" height="8" fill="#eee"/><rect x="21" width="9" height="8" fill="#A3281E"/><rect x="31.5" width="1.5" height="8" fill="#eee"/></pattern>
+<filter id="mbev" x="-5%" y="-5%" width="110%" height="110%"><feGaussianBlur in="SourceAlpha" stdDeviation="4" result="b"/><feSpecularLighting in="b" surfaceScale="8" specularConstant="1" specularExponent="20" lighting-color="#fff0cc" result="sp"><feDistantLight azimuth="225" elevation="45"/></feSpecularLighting><feComposite in="sp" in2="SourceAlpha" operator="in" result="s2"/><feComposite in="SourceGraphic" in2="s2" operator="arithmetic" k1="0" k2="1" k3=".55" k4="0"/></filter>
+<clipPath id="mdc"><circle cx="300" cy="300" r="208"/></clipPath>
+</defs>
+<rect x="226" y="-10" width="148" height="200" fill="url(#mwv)"/><rect x="176" y="440" width="248" height="160" fill="url(#mwv)"/><rect x="176" y="588" width="248" height="12" fill="#8f1d17"/>
+<g filter="url(#mbev)"><circle cx="300" cy="300" r="238" fill="none" stroke="url(#mgb)" stroke-width="34"/><circle cx="300" cy="300" r="238" fill="none" stroke="#3b2810" stroke-opacity=".5" stroke-width="12" stroke-dasharray="3 7"/><path d="M118 150 A255 255 0 0 0 214 528 A330 330 0 0 1 118 150Z" fill="url(#mgb)"/><path d="M482 150 A255 255 0 0 1 386 528 A330 330 0 0 0 482 150Z" fill="url(#mgb)"/></g>
+<circle cx="300" cy="300" r="210" fill="#0b1912"/>
+<g clip-path="url(#mdc)"><rect width="600" height="600" fill="url(#mdg)"/>
+<path d="M80 350L170 262L225 316L298 226L372 312L432 258L520 350V470H80Z" fill="#2d6a45"/><path d="M80 392L150 322L215 366L300 296L385 364L455 318L520 392V470H80Z" fill="#1f4d35"/>
+<path d="M346.7 377.7 L351.5 398.9 L348.9 398.9 L355.0 417.6 L350.9 417.6 L359.5 435.0 L347.7 435.0 L347.7 440.0 L345.7 440.0 L345.7 435.0 L333.9 435.0 L342.5 417.6 L338.4 417.6 L344.5 398.9 L341.9 398.9Z M412.2 371.7 L417.0 394.9 L414.4 394.9 L420.5 415.4 L416.3 415.4 L425.0 434.5 L413.1 434.5 L413.1 440.0 L411.2 440.0 L411.2 434.5 L399.4 434.5 L408.0 415.4 L403.9 415.4 L409.9 394.9 L407.4 394.9Z M391.2 372.3 L396.0 395.3 L393.4 395.3 L399.5 415.6 L395.3 415.6 L404.0 434.6 L392.1 434.6 L392.1 440.0 L390.2 440.0 L390.2 434.6 L378.4 434.6 L387.0 415.6 L382.8 415.6 L388.9 395.3 L386.4 395.3Z M121.0 386.0 L125.8 404.4 L123.3 404.4 L129.3 420.6 L125.2 420.6 L133.8 435.7 L122.0 435.7 L122.0 440.0 L120.1 440.0 L120.1 435.7 L108.2 435.7 L116.9 420.6 L112.7 420.6 L118.8 404.4 L116.2 404.4Z M468.5 380.5 L473.3 400.8 L470.7 400.8 L476.8 418.6 L472.6 418.6 L481.3 435.2 L469.4 435.2 L469.4 440.0 L467.5 440.0 L467.5 435.2 L455.7 435.2 L464.3 418.6 L460.2 418.6 L466.2 400.8 L463.7 400.8Z M452.3 396.6 L457.1 411.4 L454.6 411.4 L460.7 424.4 L456.5 424.4 L465.1 436.5 L453.3 436.5 L453.3 440.0 L451.4 440.0 L451.4 436.5 L439.5 436.5 L448.2 424.4 L444.0 424.4 L450.1 411.4 L447.5 411.4Z M288.2 392.6 L293.0 408.7 L290.5 408.7 L296.6 422.9 L292.4 422.9 L301.0 436.2 L289.2 436.2 L289.2 440.0 L287.3 440.0 L287.3 436.2 L275.4 436.2 L284.1 422.9 L279.9 422.9 L286.0 408.7 L283.4 408.7Z M316.6 382.8 L321.4 402.2 L318.9 402.2 L324.9 419.4 L320.8 419.4 L329.4 435.4 L317.6 435.4 L317.6 440.0 L315.7 440.0 L315.7 435.4 L303.8 435.4 L312.5 419.4 L308.3 419.4 L314.4 402.2 L311.8 402.2Z M115.0 393.5 L119.8 409.3 L117.2 409.3 L123.3 423.3 L119.1 423.3 L127.8 436.3 L115.9 436.3 L115.9 440.0 L114.0 440.0 L114.0 436.3 L102.2 436.3 L110.8 423.3 L106.7 423.3 L112.7 409.3 L110.2 409.3Z M216.2 372.5 L221.0 395.5 L218.4 395.5 L224.5 415.7 L220.4 415.7 L229.0 434.6 L217.2 434.6 L217.2 440.0 L215.2 440.0 L215.2 434.6 L203.4 434.6 L212.0 415.7 L207.9 415.7 L214.0 395.5 L211.4 395.5Z M401.0 395.2 L405.8 410.4 L403.2 410.4 L409.3 423.9 L405.1 423.9 L413.8 436.4 L401.9 436.4 L401.9 440.0 L400.0 440.0 L400.0 436.4 L388.2 436.4 L396.8 423.9 L392.7 423.9 L398.7 410.4 L396.2 410.4Z M412.9 395.8 L417.7 410.9 L415.2 410.9 L421.2 424.1 L417.1 424.1 L425.7 436.5 L413.9 436.5 L413.9 440.0 L412.0 440.0 L412.0 436.5 L400.1 436.5 L408.8 424.1 L404.6 424.1 L410.7 410.9 L408.1 410.9Z M344.6 396.2 L349.4 411.1 L346.9 411.1 L353.0 424.2 L348.8 424.2 L357.4 436.5 L345.6 436.5 L345.6 440.0 L343.7 440.0 L343.7 436.5 L331.8 436.5 L340.5 424.2 L336.3 424.2 L342.4 411.1 L339.8 411.1Z M110.7 373.9 L115.5 396.3 L112.9 396.3 L119.0 416.2 L114.8 416.2 L123.5 434.7 L111.6 434.7 L111.6 440.0 L109.7 440.0 L109.7 434.7 L97.9 434.7 L106.5 416.2 L102.4 416.2 L108.4 396.3 L105.9 396.3Z " fill="#0d2318"/><rect y="440" width="600" height="170" fill="#0e2219"/>
+<circle cx="392" cy="214" r="22" fill="#E9C98A" opacity=".85"/></g>
+<g fill="url(#mgd)" stroke="#0d1f16" stroke-width="12" stroke-linejoin="round" paint-order="stroke"><path d="M176.0 312.0 L197.0 359.6 L185.8 359.6 L212.4 401.6 L194.2 401.6 L232.0 440.8 L180.2 440.8 L180.2 452.0 L171.8 452.0 L171.8 440.8 L120.0 440.8 L157.8 401.6 L139.6 401.6 L166.2 359.6 L155.0 359.6Z"/><path d="M424.0 312.0 L445.0 359.6 L433.8 359.6 L460.4 401.6 L442.2 401.6 L480.0 440.8 L428.2 440.8 L428.2 452.0 L419.8 452.0 L419.8 440.8 L368.0 440.8 L405.8 401.6 L387.6 401.6 L414.2 359.6 L403.0 359.6Z"/><path d="M300.0 202.0 L337.5 287.0 L317.5 287.0 L365.0 362.0 L332.5 362.0 L400.0 432.0 L307.5 432.0 L307.5 452.0 L292.5 452.0 L292.5 432.0 L200.0 432.0 L267.5 362.0 L235.0 362.0 L282.5 287.0 L262.5 287.0Z"/></g>
+<circle cx="105.5" cy="501.4" r="12" fill="#B3261E" stroke="#1a1208" stroke-width="3"/><circle cx="75.8" cy="467.7" r="12" fill="#D9B472" stroke="#1a1208" stroke-width="3"/><circle cx="51.9" cy="429.7" r="12" fill="#9aa0a0" stroke="#1a1208" stroke-width="3"/><circle cx="34.3" cy="388.4" r="12" fill="#B3261E" stroke="#1a1208" stroke-width="3"/><circle cx="23.6" cy="344.8" r="12" fill="#D9B472" stroke="#1a1208" stroke-width="3"/><circle cx="20.0" cy="300.0" r="12" fill="#B3261E" stroke="#1a1208" stroke-width="3"/><circle cx="23.6" cy="255.2" r="12" fill="#D9B472" stroke="#1a1208" stroke-width="3"/><circle cx="34.3" cy="211.6" r="12" fill="#9aa0a0" stroke="#1a1208" stroke-width="3"/><circle cx="51.9" cy="170.3" r="12" fill="#B3261E" stroke="#1a1208" stroke-width="3"/><circle cx="75.8" cy="132.3" r="12" fill="#D9B472" stroke="#1a1208" stroke-width="3"/><circle cx="105.5" cy="98.6" r="12" fill="#B3261E" stroke="#1a1208" stroke-width="3"/><circle cx="494.5" cy="501.4" r="12" fill="#B3261E" stroke="#1a1208" stroke-width="3"/><circle cx="524.2" cy="467.7" r="12" fill="#D9B472" stroke="#1a1208" stroke-width="3"/><circle cx="548.1" cy="429.7" r="12" fill="#9aa0a0" stroke="#1a1208" stroke-width="3"/><circle cx="565.7" cy="388.4" r="12" fill="#B3261E" stroke="#1a1208" stroke-width="3"/><circle cx="576.4" cy="344.8" r="12" fill="#D9B472" stroke="#1a1208" stroke-width="3"/><circle cx="580.0" cy="300.0" r="12" fill="#B3261E" stroke="#1a1208" stroke-width="3"/><circle cx="576.4" cy="255.2" r="12" fill="#D9B472" stroke="#1a1208" stroke-width="3"/><circle cx="565.7" cy="211.6" r="12" fill="#9aa0a0" stroke="#1a1208" stroke-width="3"/><circle cx="548.1" cy="170.3" r="12" fill="#B3261E" stroke="#1a1208" stroke-width="3"/><circle cx="524.2" cy="132.3" r="12" fill="#D9B472" stroke="#1a1208" stroke-width="3"/><circle cx="494.5" cy="98.6" r="12" fill="#B3261E" stroke="#1a1208" stroke-width="3"/></svg><span class="logo-t">BENGUET MARATHON</span></a>
   <button class="burger" id="burger" type="button" aria-label="Open menu" aria-haspopup="dialog" aria-controls="menu"><span></span><span></span></button>
 </div></header>
 <dialog id="menu" aria-label="Menu">
@@ -363,7 +390,7 @@ body.spot .hero:not(.focus),body.spot main>section:not(.focus){opacity:.5}
   <div class="count" role="timer" aria-live="off">
     <div class="wrap">
       <div id="cd"><b>--</b><span class="u">days</span><b>--</b><span class="u">hours</span><b>--</b><span class="u">minutes</span></div>
-      <div>until the start gun</div>
+      <div>until the gunstart</div>
     </div>
   </div>
 
@@ -390,7 +417,7 @@ body.spot .hero:not(.focus),body.spot main>section:not(.focus){opacity:.5}
     <div class="gt">
       <p class="eyebrow">Gallery</p>
       <h2>Lorem <em>ipsum.</em></h2>
-      <p class="gsub">The trails in every frame. See what runners see.</p>
+      <p class="gsub">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</p>
       <a class="btn gbtn" href="#/gallery">Open gallery <span aria-hidden="true">&rsaquo;</span></a>
       <svg class="wave" viewBox="0 0 1000 30" preserveAspectRatio="none" aria-hidden="true"><path d="M0 30V14L80 10 170 16 270 8 380 15 480 9 590 16 690 8 800 15 900 10 1000 14V30Z" fill="var(--bg)"/></svg>
     </div>
