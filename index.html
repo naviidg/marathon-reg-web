@@ -467,6 +467,24 @@ body.hh .ftimer{top:calc(env(safe-area-inset-top,0px) + .75rem)}
 .logos{margin-top:1rem}
 .br-purpose{display:block}
 .cup3{margin-top:1.5rem}
+
+/* Collection: one animation style per group */
+.lbimg.zt{animation:lbzoom .6s cubic-bezier(.2,.7,.2,1) both}
+.lbimg.zb{animation:lbflip .75s cubic-bezier(.2,.8,.2,1) both}
+@keyframes lbzoom{from{opacity:0;transform:scale(.92) translateY(14px);filter:blur(6px)}to{opacity:1;transform:none;filter:blur(0)}}
+@keyframes lbflip{from{opacity:0;transform:perspective(900px) rotateY(-70deg) scale(.9)}to{opacity:1;transform:none}}
+dialog#lb[open]::backdrop{animation:bdf .3s ease both}
+@keyframes bdf{from{opacity:0}to{opacity:1}}
+.view-gallery .logos .ph{animation:pop .55s cubic-bezier(.2,.9,.3,1.15) both;animation-delay:calc(var(--i)*70ms)}
+@keyframes pop{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:none}}
+.logos .ph:hover{transform:scale(1.04)}
+@media (prefers-reduced-motion:reduce){.lbimg,.view-gallery .ph,dialog#lb[open]::backdrop{animation:none!important}.logos .ph:hover{transform:none}}
+
+/* Opening the collection */
+#wipe{position:fixed;inset:0;z-index:40;pointer-events:none;background:#141A15 center/cover no-repeat;display:grid;place-items:center}
+#wipe[hidden]{display:none}
+.wipe-t{margin:0;font:300 clamp(2rem,6vw,3.6rem) "Fraunces",Georgia,serif;letter-spacing:-.01em;color:#F4F1EA;animation:wfade .5s ease .25s both}
+@keyframes wfade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 </style>
 </head>
 <body>
@@ -650,6 +668,7 @@ body.hh .ftimer{top:calc(env(safe-area-inset-top,0px) + .75rem)}
 
 <button class="totop" id="totop" type="button" aria-label="Back to top"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
 <div class="ftimer" id="ftimer" role="timer" aria-label="Countdown to race month"><span class="fl">Race month in</span><span id="ftv"></span></div>
+<div id="wipe" hidden aria-hidden="true"><p class="wipe-t">Pines &amp; Miles</p></div>
 <footer><div class="wrap">
   <span>Team Malaya × Print Taraki. All rights reserved.</span>
   <span><a href="https://www.facebook.com/teammalaya.org" target="_blank" rel="noopener">Facebook</a></span>
@@ -723,7 +742,7 @@ body.hh .ftimer{top:calc(env(safe-area-inset-top,0px) + .75rem)}
     var im=new Image();im.src=g.src;im.alt="";im.decoding="async";f.appendChild(im);return f}
   G.forEach(function(g,i){var t=tile(g,i);t.onclick=function(){open(i)};(g.z?mas2:mas).appendChild(t)});
   var lb=document.getElementById("lb"),lbc=document.getElementById("lbc");
-  function open(i){var g=G[i];lbc.innerHTML="";var d=document.createElement("div");d.className="lbimg "+g.k;d.style.background=g.bg;
+  function open(i){var g=G[i];lbc.innerHTML="";var d=document.createElement("div");d.className="lbimg "+g.k+(g.z?" zb":" zt");d.style.background=g.bg;
     var im=new Image();im.src=g.src;im.alt=g.alt;d.appendChild(im);lbc.appendChild(d);lb.showModal()}
   lb.querySelector(".x").onclick=function(){lb.close()};
   lb.addEventListener("click",function(e){if(e.target===lb)lb.close()});
@@ -848,6 +867,28 @@ body.hh .ftimer{top:calc(env(safe-area-inset-top,0px) + .75rem)}
   if(!("IntersectionObserver" in window)||window.matchMedia("(prefers-reduced-motion: reduce)").matches)return;
   var io=new IntersectionObserver(function(es){es.forEach(function(e){e.target.classList.toggle("tk",e.isIntersecting)})},{threshold:.4});
   document.querySelectorAll(".br-gear,.br-purpose,.br-awards").forEach(function(el){el.classList.add("tkjs");io.observe(el)});
+})();
+</script>
+<script>
+(function(){
+  if(window.matchMedia("(prefers-reduced-motion: reduce)").matches||!document.body.animate)return;
+  var w=document.getElementById("wipe"),busy=false;
+  document.addEventListener("click",function(e){
+    var a=e.target.closest&&e.target.closest("a.gbtn");
+    if(!a||busy||e.button||e.metaKey||e.ctrlKey||e.shiftKey)return;
+    e.preventDefault();busy=true;
+    var r=a.getBoundingClientRect(),x=r.left+r.width/2,y=r.top+r.height/2,W=window.innerWidth,H=window.innerHeight,rad=Math.hypot(Math.max(x,W-x),Math.max(y,H-y));
+    w.style.backgroundImage="linear-gradient(rgba(14,22,17,.62),rgba(14,22,17,.82)),"+getComputedStyle(document.querySelector(".gt")).backgroundImage;
+    w.hidden=false;
+    var grow=w.animate([{clipPath:"circle(0px at "+x+"px "+y+"px)"},{clipPath:"circle("+rad+"px at "+x+"px "+y+"px)"}],{duration:650,easing:"cubic-bezier(.6,0,.3,1)",fill:"forwards"});
+    grow.onfinish=function(){
+      location.hash="#/gallery";
+      setTimeout(function(){
+        var f=w.animate([{opacity:1},{opacity:0}],{duration:600,easing:"ease",fill:"forwards"});
+        f.onfinish=function(){w.hidden=true;w.getAnimations().forEach(function(n){n.cancel()});busy=false};
+      },80);
+    };
+  },true);
 })();
 </script>
 </body>
