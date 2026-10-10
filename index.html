@@ -550,7 +550,7 @@ body.hh .ftimer{top:calc(env(safe-area-inset-top,0px) + .75rem)}
   <div class="count" role="timer" aria-live="off">
     <div class="wrap">
       <div id="cd"><b>--</b><span class="u">days</span><b>--</b><span class="u">hours</span><b>--</b><span class="u">minutes</span></div>
-      <div>until the gunstart</div>
+      <div id="cdl">until race month. The exact gunstart is still tying its shoelaces.</div>
     </div>
   </div>
 
@@ -649,7 +649,7 @@ body.hh .ftimer{top:calc(env(safe-area-inset-top,0px) + .75rem)}
 <dialog id="lb" aria-label="Photo viewer"><button class="x" aria-label="Close photo">&times;</button><div id="lbc"></div></dialog>
 
 <button class="totop" id="totop" type="button" aria-label="Back to top"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
-<div class="ftimer" id="ftimer" role="timer" aria-label="Countdown to gunstart"><span class="fl">Gunstart</span><span id="ftv"></span></div>
+<div class="ftimer" id="ftimer" role="timer" aria-label="Countdown to race month"><span class="fl">Race month in</span><span id="ftv"></span></div>
 <footer><div class="wrap">
   <span>Team Malaya × Print Taraki. All rights reserved.</span>
   <span><a href="https://www.facebook.com/teammalaya.org" target="_blank" rel="noopener">Facebook</a></span>
@@ -662,7 +662,7 @@ body.hh .ftimer{top:calc(env(safe-area-inset-top,0px) + .75rem)}
   function pad(n){return String(n).padStart(2,"0")}
   function tick(){
     var ms=target-new Date();
-    if(ms<=0){el.innerHTML="<b>Race day</b>";return}
+    if(ms<=0){el.innerHTML="<b>It's race month</b>";var l=document.getElementById("cdl");if(l)l.textContent="Exact gunstart date coming soon.";return}
     var d=Math.floor(ms/864e5),h=Math.floor(ms%864e5/36e5),m=Math.floor(ms%36e5/6e4);var sc=Math.floor(ms%6e4/1e3);
     var bm=(window._lm!==undefined&&window._lm!==m)?" class='bump'":"";window._lm=m;
     el.innerHTML="<b>"+d+"</b><span class='u'>days</span><b>"+pad(h)+"</b><span class='u'>hours</span><b"+bm+">"+pad(m)+"</b><span class='u'>minutes</span><b>"+pad(sc)+"</b><span class='u'>seconds</span>";
@@ -825,7 +825,7 @@ body.hh .ftimer{top:calc(env(safe-area-inset-top,0px) + .75rem)}
   var f=document.getElementById("ftimer"),v=document.getElementById("ftv"),c=document.querySelector(".count"),T=window._target,busy=false;
   function pad(n){return String(n).padStart(2,"0")}
   function render(){
-    var ms=T-new Date();if(ms<=0){v.innerHTML="<b>Race day</b>";return}
+    var ms=T-new Date();if(ms<=0){v.innerHTML="<b>Race month</b>";return}
     var d=Math.floor(ms/864e5),h=Math.floor(ms%864e5/36e5),m=Math.floor(ms%36e5/6e4),s=Math.floor(ms%6e4/1e3);
     v.innerHTML="<b>"+d+"</b><i>d</i><b>"+pad(h)+"</b><i>h</i><b>"+pad(m)+"</b><i>m</i><b>"+pad(s)+"</b><i>s</i>";
   }
